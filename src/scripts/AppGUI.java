@@ -46,6 +46,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -286,7 +287,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 //Frame Stuff
 		setTitle("MHWI THK Editor (Ver. " + verNum + ")");
 		setSize(800,650);
-		setResizable(true);
+		setResizable(false);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	    addWindowListener(new WindowAdapter() {
 	    	@Override
@@ -450,7 +451,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 			}
 		});
 	    
-	    list_NodeSelect.setFixedCellWidth(375);
+	    list_NodeSelect.setFixedCellWidth(350);
 	    list_NodeSelect.setFixedCellHeight(18);
 	    list_NodeSelect.setVisibleRowCount(10);
 	    list_NodeSelect.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -468,7 +469,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	    };
 	    list_NodeSelect.addListSelectionListener(listSeleMod_NodeSelect);
 	    
-	    list_SegSelect.setFixedCellWidth(375);
+	    list_SegSelect.setFixedCellWidth(350);
 	    list_SegSelect.setFixedCellHeight(18);
 	    list_SegSelect.setVisibleRowCount(10);	
 	    list_SegSelect.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
