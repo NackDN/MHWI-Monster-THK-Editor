@@ -136,6 +136,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 			"IF Mounted (25)",
 			"IF HP < (Para2)% (2C)",
 			"IF Target's Status (2E)",
+			"IF Target's ID (2F)",
 			"IF Quest ID (37)",
 			"Alt. Target (?) (5E)",
 			"IF Nearest Meat > (6B)",
@@ -831,14 +832,17 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 								break;		 
 		        			case "IF Target's Status (2E)":
 								curSeg.check = "2e00";
-								break;		        			
+								break;
+		        			case "IF Target's ID (2F)":
+		        				curSeg.check = "2f00";
+		        				break;
 		        			case "IF Quest ID (37)":
 								curSeg.check = "3700";
 								break;
 		        			case "Alt. Target (?) (5E)":
 								curSeg.check = "b800";
 								break;								
-		        			case "IF Nearest Meat > (6B)":
+		        			case "IF Nearest Meat < (6B)":
 								curSeg.check = "6b00";
 								break;
 		        			case "IF Flying (70)":
@@ -2031,6 +2035,9 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 					break;
 				case "2e00":
 					combobox_SegCheckChoice.setSelectedItem("IF Target's Status (2E)");
+					break;
+				case "2f00":
+					combobox_SegCheckChoice.setSelectedItem("IF Target's ID (2F)");
 					break;
 				case "3700":
 					combobox_SegCheckChoice.setSelectedItem("IF Quest ID (37)");
