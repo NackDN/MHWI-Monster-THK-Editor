@@ -26,6 +26,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -143,6 +144,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 			"IF Flying (70)",
 			"IF Part P1 Broken (76)",
 			"Chng Area/THK17 (AE)",
+			"Chng Area/THK?? (B1)",
 			"IF Quest Rank (B8)",
 			"Area Check (BF)",
 			"Set Int A (80)",
@@ -198,7 +200,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 			"If... (02)",
 			"Else/Else If... (04)",
 			"End If (08)",
-			"Initial Seg. (10)",
+			"End THK (10)",
 			"Unknown"};
 	JLabel label_SegIfChoice = new JLabel("Branching Type: ");
 	JComboBox combobox_SegIfChoice = new JComboBox(array_SegIfChoice);
@@ -217,12 +219,15 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	JLabel label_RandomChoice = new JLabel("Random Type: ");
 	JComboBox combobox_RandomChoice = new JComboBox(array_RandomChoice);
 	JButton button_saveSeg = new JButton("Save Segment");
+	JButton button_saveSeg2 = new JButton("Save Segment");
+	Timer timer_segButton = new Timer(500, this);
 	
 	JLabel label_nodeOffset = new JLabel("Node Index: ");
 	JLabel label_nodeSegCount = new JLabel("# of Segments: ");
 	JLabel label_nodeID = new JLabel("Node ID: ");
 	JTextField textfield_nodeID = new JTextField(10);
 	JButton button_saveNode = new JButton("Save Node");
+	Timer timer_nodeButton = new Timer(500, this);
 	
 	JButton button_addNode = new JButton("Add");
 	JButton button_delNode = new JButton("Delete");
@@ -253,7 +258,6 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	JTextField textfield_actUnkn4 = new JTextField(10);
 	JLabel label_actUnkn5 = new JLabel("Action Unknown 5: ");
 	JTextField textfield_actUnkn5 = new JTextField(10);
-	JButton button_saveSeg2 = new JButton("Save Segment");
 	
 	JButton button_goTo = new JButton("Go To Ref.");
 	
@@ -366,6 +370,12 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	    
 	    titleSaveEnable.setState(true);
 	    
+	    button_saveNode.addActionListener(this);
+	    button_saveNode.setActionCommand("SaveNode");
+	    
+	    timer_nodeButton.setRepeats(false);
+		timer_nodeButton.setActionCommand("RestoreNodeButton");
+	    
 	    button_addNode.addActionListener(this);
 	    button_addNode.setActionCommand("AddNode");
 	    
@@ -392,8 +402,8 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	    button_saveSeg2.addActionListener(this);
 	    button_saveSeg2.setActionCommand("SaveSeg");
 	    
-	    button_saveNode.addActionListener(this);
-	    button_saveNode.setActionCommand("SaveNode");
+		timer_segButton.setRepeats(false);
+		timer_segButton.setActionCommand("RestoreSegButton");
 	    
 	    button_addSeg.addActionListener(this);
 	    button_addSeg.setActionCommand("AddSeg");
@@ -853,7 +863,10 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 								break;	
 		        			case "Chng Area/THK17 (AE)":
 								curSeg.check = "ae00";
-								break;	
+								break;
+		        			case "Chng Area/THK?? (B1)":
+		        				curSeg.check = "b100";
+		        				break;
 		        			case "IF Quest Rank (B8)":
 								curSeg.check = "b800";
 								break;
@@ -1061,8 +1074,11 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	        		curSeg.actUnkn5 = Integer.parseInt(textfield_actUnkn5.getText());
 		        	
 	        		int curListSeg = list_SegSelect.getSelectedIndex();
-		        	JOptionPane.showMessageDialog(null, "Changes were saved sucessfully!");
-		        	latestVersion = false;
+	        		button_saveSeg.setText("Saved Successfully");
+	        		button_saveSeg2.setText("Saved Successfully");
+	        		timer_segButton.restart();
+	        		timer_segButton.start();
+	        		latestVersion = false;
 		        	refreshSegList();
 		        	list_SegSelect.setSelectedIndex(curListSeg);
 		        	refreshSegTab();
@@ -1071,6 +1087,9 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
         	} else {
             	JOptionPane.showMessageDialog(null, "Select an existing segment!");        		
         	}
+        } else if (cmd.equals("RestoreSegButton")) {
+    		button_saveSeg.setText("Save Segment");
+    		button_saveSeg2.setText("Save Segment");
         } else if (cmd.equals("SaveNode")) {
         	if (selectedNode==null) {
             	JOptionPane.showMessageDialog(null, "Select an existing node!");       		
@@ -1092,7 +1111,9 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	        		selectedNode.id = Integer.parseInt(textfield_nodeID.getText());
 	    			selectedNode.title = textfield_nodeTitle.getText();
 	    			latestVersion = false;
-	    			JOptionPane.showMessageDialog(null, "Changes were saved sucessfully!");
+	        		button_saveNode.setText("Saved Successfully");
+	        		timer_nodeButton.restart();
+	        		timer_nodeButton.start();
 	    			int nodeListIndex = list_NodeSelect.getSelectedIndex();
 	    			refreshNodeList();
 		        	list_NodeSelect.setSelectedIndex(nodeListIndex);
@@ -1101,6 +1122,8 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	    			JOptionPane.showMessageDialog(null, "The ID is already in use! (Node " + newIndex + ")");
         		}
     		}
+        } else if (cmd.equals("RestoreNodeButton")) {
+    		button_saveNode.setText("Save Node");
         } else if (cmd.equals("AddNode")) {
         	if (selectedNode!=null) {
 	        	while (selectedNode.next!=null) {
@@ -1829,7 +1852,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 					if (curSeg.nodeEnd) {
 						iden = "END NODE";
 					} else if (curSeg.ifCon.equals("10")) {
-						iden = "INITIAL SEGMENT";
+						iden = "END THK";
 					} else if (curSeg.choice.equals("40")) {
 						iden = "CHOICE (" + curSeg.parameter + "%)";
 						indentAmt++;
@@ -2056,6 +2079,9 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 					break;
 				case "ae00":
 					combobox_SegCheckChoice.setSelectedItem("Chng Area/THK17 (AE)");
+					break;
+				case "b100":
+					combobox_SegCheckChoice.setSelectedItem("Chng Area/THK?? (B1)");
 					break;
 				case "b800":
 					combobox_SegCheckChoice.setSelectedItem("IF Quest Rank (B8)");
