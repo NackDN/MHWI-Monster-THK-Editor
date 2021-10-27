@@ -6,7 +6,7 @@ A visual editor for the THK files used by Monsters in Monster Hunter World Icebo
 * Deathcream (Monster & AI Research)
 * Fandirus (My Personal AI Mentor; Monster, Shell, and AI Research)
 * Fexty (Memory & AI Research)
-* hexhexhex (Monster Researcj)
+* hexhexhex (Monster Research)
 * Miralis (Sparring Partner for AI Creations)
 * NackDN (Program Creator; Monster & AI Research)
 * Nekogata (Monster, Shell, and AI Research)
