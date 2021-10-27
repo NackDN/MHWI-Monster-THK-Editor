@@ -1,9 +1,9 @@
 # MHWI-Monster-THK-Editor
 A visual editor for the THK files used by Monsters in Monster Hunter World Iceborne, created through the powers of the Monster Hunter Modding Community's...
 
-* AsteriskAmpersand (Everything Research)
-* Dave uRrr (Memory & AI Research)
-* Deathcream (Monster, Map, and AI Research)
+* AsteriskAmpersand (Everything Research. Literally... Everything)
+* Dave uRrr (Memory, Map, and AI Research)
+* Deathcream (Monster & AI Research)
 * Fandirus (My Personal AI Mentor; Monster, Shell, and AI Research)
 * Fexty (Memory & AI Research)
 * hexhexhex (Monster Researcj)
