@@ -1758,7 +1758,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
     		//System.out.println("Opening Search Menu");
     		searchMenu.setVisible(true);
     	} else if (cmd.equals("About")) {
-			JLabel aboutTxt = new JLabel("<html><center>Monser Hunter World: Iceborne THK Editor - Version " + verNum + "<br><br>Created by NackDN, using the information of THK files researched by Fandirus, as well as the rest of the MHW Moddng Community. Please contact @NackDN#7777 to report any bugs.<br><br>Special Thanks to Fandirus, Asterisk, Dave uRrr, Deathcream, Fexty, Miralis, Nekotaga, and Stracker for their research into Monster AI.");
+			JLabel aboutTxt = new JLabel("<html><center>Monser Hunter World: Iceborne THK Editor - Version " + verNum + "<br><br>Created by NackDN, using the information of THK files researched by Fandirus, as well as the rest of the MHW Moddng Community. Please contact @NackDN#7777 to report any bugs.<br><br>Special Thanks to Fandirus, Asterisk, Dave uRrr, Deathcream, Fexty, hexhexhex, Miralis, Nekotaga, and Stracker for their research into Monster AI.");
     		JOptionPane.showMessageDialog(null, aboutTxt, "About", JOptionPane.DEFAULT_OPTION);
     	} else if (cmd.equals("Config")) {
     		configMenu.setVisible(false);
