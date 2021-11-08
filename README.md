@@ -4,7 +4,7 @@ A visual editor for the THK files used by Monsters in Monster Hunter World Icebo
 * AsteriskAmpersand (Everything Research. Literally... Everything)
 * Dave uRrr (Memory, Map, and AI Research)
 * Deathcream (Monster & AI Research)
-* Fandirus (My Personal AI Mentor; Monster, Shell, and AI Research)
+* Fandirus (My Personal AI Mentor; Monster, Shell, Animation and AI Research)
 * Fexty (Memory & AI Research)
 * hexhexhex (Monster Research)
 * Miralis (Sparring Partner for AI Creations)
