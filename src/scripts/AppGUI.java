@@ -108,7 +108,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	JMenuItem fileSaveAs = new JMenuItem("Save As");
 	JMenuItem helpConfig = new JMenuItem("Configure");
 	JMenuItem helpAbout = new JMenuItem("About");
-	JCheckBoxMenuItem titleSaveEnable = new JCheckBoxMenuItem("Save Title");
+	JCheckBoxMenuItem titleSaveEnable = new JCheckBoxMenuItem("Save Node Titles"); 
 	
 	JLabel label_NodeList = new JLabel("Nodes:");
 	JLabel label_SegList = new JLabel("Segments:");
@@ -286,7 +286,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	AdvancedSearch searchMenu;
 	Config configMenu;
 	int SegCheckLastChoice = 1;
-	static String verNum = "2.0";					// Version Number
+	static String verNum = "2.0.1";					// Version Number
 //Structures the GUI
 	public AppGUI() {
 //Frame Stuff
@@ -321,6 +321,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	    }
 	    
 	    // Fills in all of the appropriate values from configData
+	    // Note: Try to keep the entry imports in chronological order of the entry's addition to the editor
     	if (configData.substring(verNum.length()+10,verNum.length()+21).equals("defaultDir=")) {
     		int pointer = 21 + verNum.length(); 
     		StringBuilder tempFileTest = new StringBuilder();
@@ -368,7 +369,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
 	    helpAbout.setActionCommand("About");
 	    setJMenuBar(menuBar);
 	    
-	    titleSaveEnable.setState(true);
+	    titleSaveEnable.setState(false);
 	    
 	    button_saveNode.addActionListener(this);
 	    button_saveNode.setActionCommand("SaveNode");
@@ -723,10 +724,15 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
             		}
                 	currentFile = fileChooser.getSelectedFile().getAbsolutePath();       		
             		String fileName = fileChooser.getSelectedFile().getName();
+                	String extension = currentFile.substring(currentFile.length()-4, currentFile.length());
+                	if (!(extension.equals(".thk"))) {
+                		currentFile += ".thk";
+                		fileName += ".thk";
+                	}
             		currentTitle = currentFile.substring(0, currentFile.length() - fileName.length()) + fileName.substring(0, fileName.length() - 4) + ".thktit";        		
                 	this.setTitle("Saving File... - MHWI THK Editor");
             		conv.HexToFile(hexData, currentFile);
-                	if (titleSaveEnable.getState()) {
+                	if ((titleSaveEnable.getState())&&(selectedNode!=null)) {
                 		conv.writeTextTo(selectedNode.TitletoString(), currentTitle);
                 	}
             		latestVersion = true;
@@ -751,7 +757,7 @@ public final class AppGUI extends JFrame implements ActionListener, ItemListener
         		currentTitle = currentFile.substring(0, currentFile.length() - fileName.length()) + fileName.substring(0, fileName.length() - 4) + ".thktit";        		
             	this.setTitle("Saving File... - MHWI THK Editor");
         		conv.HexToFile(hexData, currentFile);
-            	if (titleSaveEnable.getState()) {
+            	if ((titleSaveEnable.getState())&&(selectedNode!=null)) {
             		conv.writeTextTo(selectedNode.TitletoString(), currentTitle);
             	}
         		latestVersion = true;
