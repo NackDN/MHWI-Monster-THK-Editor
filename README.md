@@ -17,5 +17,9 @@ Allows for...
 * Opening and viewing THK files
 * The creation, alteration, and removal of Nodes and Segments within a THK file
 * The ability to save edits to a THK file
+* The ability to name nodes within a THK file and save those names to a separate file (.thktit)
 
 A detailed guide will be released in the near future.
+
+Known Issues
+* The editor will save THK titles, even when the option to is unchecked
